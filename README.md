@@ -33,8 +33,8 @@ A simplified social network that supports user registration, friendships, messag
 - Both users are added to each other's friends list
 - **Edge cases handled:**
   - One or both users don't exist → error message
-  - Users are already friends → error message
   - A user attempting to friend themselves → error message
+  - Users are already friends → error message
 
 #### `sendMessage(from, to, body)`
 - Creates a message object: `{ id, from, to, body, timestamp }`
