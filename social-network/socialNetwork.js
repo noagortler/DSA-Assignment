@@ -66,6 +66,33 @@ class SocialNetwork {
 
         console.log(`${userA} has successfully added ${userB}.`);
     }
+
+    // Send Messages
+
+    sendMessage(from, to, body) {
+
+        // 1. Check existence
+
+        if(!this.users[from] || !this.users[to]) {
+            console.log(`Error: Message cannot be sent. One or both users do not exist.`);
+            return;
+        };
+
+        // 2. Create message
+        const message = {
+            id: Date.now().toString(),
+            from: from,
+            to: to,
+            body: body,
+            timestamp: Date.now()
+        };
+
+        // 3. Send message (Push to senders sentStack, push to receivers inbox, send confirmation message)
+
+        this.users[from].sentStack.push(message);
+        this.users[to].inbox.push(message);
+        console.log(`Message sent ${from} to ${to}.`);
+    }
 }
 
 module.exports = SocialNetwork;
