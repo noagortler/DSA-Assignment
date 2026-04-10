@@ -93,6 +93,32 @@ class SocialNetwork {
         this.users[to].inbox.push(message);
         console.log(`Message sent ${from} to ${to}.`);
     }
+
+    // Read next message in inbox
+
+    readNextMessage(user) {
+
+        // 1. Check existence
+
+        if(!this.users[user]) {
+            console.log(`Error: This user does not exist.`);
+            return;
+        }
+
+        // 2. Check if inbox is empty
+
+        const inbox = this.users[user].inbox;
+
+        if(inbox.length === 0) {
+            console.log(`You have no unread messages`);
+            return;
+        }
+
+        // 3. Read message
+        const message = inbox.shift()
+        console.log(`New message from ${message.from}: "${message.body}"`)
+
+    }
 }
 
 module.exports = SocialNetwork;

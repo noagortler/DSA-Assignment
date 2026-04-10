@@ -29,3 +29,10 @@ network.sendMessage("felix123", "oscar123", "This should fail."); // non-existen
 console.log("--- Checking Inbox and SentStack ---");
 console.log("rubycat's inbox:", network.users["rubycat"].inbox);
 console.log("felix123's sentStack:", network.users["felix123"].sentStack);
+
+// Reading Messages
+
+console.log("--- Reading Messages ---");
+network.readNextMessage("rubycat");         // read Felix's message to Ruby
+network.readNextMessage("rubycat");         // no unread messages
+network.readNextMessage("oscar123");        // non-existent user test
