@@ -54,3 +54,9 @@ network.addFriendship("peterpan", "tinkerbell");
 network.findShortestPath("felix123", "tinkerbell");
 network.findShortestPath("felix123", "felix123"); // same user test
 network.findShortestPath("felix123", "oscar123"); // non-existent user test
+
+// Suggest Friends
+
+console.log("--- Suggest Friends ---");
+network.suggestFriends("felix123");
+network.suggestFriends("oscar123"); // non-existent user test

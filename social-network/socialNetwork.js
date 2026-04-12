@@ -299,6 +299,55 @@ class SocialNetwork {
         console.log(`No connection found between ${userA} and ${userB}.`);
         return null;
     }
+
+    // Suggest Friends
+
+    suggestFriends(username) {
+
+        // 1. Check user exists
+
+        if (!this.users[username]) {
+            console.log(`Error: This user does not exist.`);
+            return;
+        }
+
+        // 2. Store suggestions in array
+
+        const suggestions = [];
+
+        // 3. Loop through user's friends (1 hop)
+
+        for (let friend of this.friends[username]) {
+
+            // 4. Loop through each freind's friends (2 hops)
+
+            for (let friendOfFriend of this.friends[friend]) {
+
+                // 5. Exclude initial user themselves
+
+                if (username === friendOfFriend) {
+                    continue;
+                }
+
+                // 6. Exclude friends of initial user
+
+                if (this.friends[username].includes(friendOfFriend)) {
+                    continue;
+                }
+
+                // 7. Add friends of friends to suggestions, excludiing duplicates
+
+                if (!suggestions.includes(friendOfFriend)) {
+                    suggestions.push(friendOfFriend);
+                }
+
+            }
+
+        } 
+
+        console.log(`Friend Suggestions: `, suggestions);
+        return suggestions;
+    }
 }
 
 module.exports = SocialNetwork;
