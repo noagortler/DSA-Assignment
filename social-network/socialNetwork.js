@@ -1,69 +1,69 @@
 // Stack Data Structure
 
 class Stack {
-  constructor() {
-    this.items = [];
-  }
-
-  push(value) {
-    this.items.push(value);
-  }
-
-  pop() {
-    if (this.isEmpty()) {
-      return "Stack is empty";
+    constructor() {
+        this.items = [];
     }
-    return this.items.pop();
-  }
 
-  peek() {
-    if (this.isEmpty()) {
-      return "Stack is empty";
+    push(value) {
+        this.items.push(value);
     }
-    return this.items[this.items.length - 1];
-  }
 
-  isEmpty() {
-    return this.items.length === 0;
-  }
+    pop() {
+        if (this.isEmpty()) {
+            return "Stack is empty";
+        }
+        return this.items.pop();
+    }
 
-  size() {
-    return this.items.length;
-  }
+    peek() {
+        if (this.isEmpty()) {
+            return "Stack is empty";
+        }
+        return this.items[this.items.length - 1];
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
+    }
+
+    size() {
+        return this.items.length;
+    }
 }
 
 // Queue Data Structure
 
 class Queue {
-  constructor() {
-    this.items = [];
-  }
-
-  enqueue(value) {
-    this.items.push(value);
-  }
-
-  dequeue() {
-    if (this.isEmpty()) {
-      return "Queue is empty";
+    constructor() {
+        this.items = [];
     }
-    return this.items.shift();
-  }
 
-  peek() {
-    if (this.isEmpty()) {
-      return "Queue is empty";
+    enqueue(value) {
+        this.items.push(value);
     }
-    return this.items[0];
-  }
 
-  isEmpty() {
-    return this.items.length === 0;
-  }
+    dequeue() {
+        if (this.isEmpty()) {
+            return "Queue is empty";
+        }
+        return this.items.shift();
+    }
 
-  size() {
-    return this.items.length;
-  }
+    peek() {
+        if (this.isEmpty()) {
+            return "Queue is empty";
+        }
+        return this.items[0];
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
+    }
+
+    size() {
+        return this.items.length;
+    }
 }
 
 // Social Network
@@ -209,7 +209,7 @@ class SocialNetwork {
             console.log(`Your sent stack is empty.`);
             return;
 
-        // 3. If sentStack is not empty, check message is still unread by receiver
+            // 3. If sentStack is not empty, check message is still unread by receiver
 
         } else {
 
@@ -226,8 +226,8 @@ class SocialNetwork {
                     break;
                 }
             }
-        
-        // 4. If still unread -> delete. If already read, cannot be unsent.
+
+            // 4. If still unread -> delete. If already read, cannot be unsent.
 
             if (stillUnread) {
                 receiverInbox.splice(messageIndex, 1);
@@ -240,6 +240,64 @@ class SocialNetwork {
             }
 
         }
+    }
+
+    // Find shortest path between users using BFS
+
+    findShortestPath(userA, userB) {
+
+        // 1. Check both users exist
+
+        if (!this.users[userA] || !this.users[userB]) {
+            console.log(`Error: One or both users do not exist.`);
+            return;
+        }
+
+        // 2. Check not same user
+
+        if (userA === userB) {
+            console.log(`Error: You cannot find a path to yourself.`);
+            return;
+        }
+
+        // 3. BFS setup -> Queue holds path
+
+        const queue = [[userA]];
+        const visited = new Set();
+        visited.add(userA);
+
+
+        // 4. BFS loop
+
+        while (queue.length > 0) {
+
+            const path = queue.shift();
+            const current = path[path.length - 1];
+
+            // 5. Check each neighbor of current node
+
+            for (let neighbor of this.friends[current]) {
+
+                if (!visited.has(neighbor)) {
+
+                    const newPath = [...path, neighbor];
+
+                    // 6. Found the target
+
+                    if (neighbor === userB) {
+                        console.log(`Shortest path: `, newPath);
+                        return newPath;
+                    }
+
+                    visited.add(neighbor);
+                    queue.push(newPath);
+                }
+            }
+        }
+
+        // 7. No path found
+        console.log(`No connection found between ${userA} and ${userB}.`);
+        return null;
     }
 }
 

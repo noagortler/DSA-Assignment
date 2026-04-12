@@ -43,3 +43,14 @@ console.log("--- Undo Last Sent ---");
 network.sendMessage("felix123", "rubycat", "Unsend this message");
 network.undoLastSent("felix123");  // unsend message
 network.undoLastSent("felix123");  // sentStack empty test
+
+// Shortest Path
+
+console.log("--- Shortest Path ---");
+network.addUser("Peter", "Pan", "peterpan", "abc123");
+network.addUser("Tinker", "Bell", "tinkerbell", "abc123");
+network.addFriendship("rubycat", "peterpan");
+network.addFriendship("peterpan", "tinkerbell");
+network.findShortestPath("felix123", "tinkerbell");
+network.findShortestPath("felix123", "felix123"); // same user test
+network.findShortestPath("felix123", "oscar123"); // non-existent user test
