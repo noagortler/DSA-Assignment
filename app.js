@@ -36,3 +36,10 @@ console.log("--- Reading Messages ---");
 network.readNextMessage("rubycat");         // read Felix's message to Ruby
 network.readNextMessage("rubycat");         // no unread messages
 network.readNextMessage("oscar123");        // non-existent user test
+
+// Undo Last Sent
+
+console.log("--- Undo Last Sent ---");
+network.sendMessage("felix123", "rubycat", "Unsend this message");
+network.undoLastSent("felix123");  // unsend message
+network.undoLastSent("felix123");  // sentStack empty test
