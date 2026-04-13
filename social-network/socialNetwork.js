@@ -74,11 +74,12 @@ class SocialNetwork {
         this.friends = {};
     }
 
+
     // Add User
 
     addUser(firstName, lastName, username, password) {
 
-        // 1. Block duplicate usernmaes
+        // 1. Block duplicate usernames
 
         if (this.users[username]) {
             console.log(`Error: username "${username}" is already taken.`);
@@ -100,7 +101,7 @@ class SocialNetwork {
 
         this.friends[username] = [];
 
-        console.log(`Added user: ${username}`)
+        console.log(`Added user: ${username}`);
 
     }
 
@@ -109,16 +110,24 @@ class SocialNetwork {
 
     lookUpUser(username) {
 
-        // 1. Check existence
-
-        if (!this.users[username]) {
-            console.log(`Error: "${username} does not exist.`)
-            return;
-        } else {
-            console.log(this.users[username]);
-            return this.users[username];
-        }
+    // 1. Check existence
+    if (!this.users[username]) {
+        console.log(`Error: "${username}" does not exist.`);
+        return;
     }
+
+    const user = this.users[username];
+
+    // 2. Return safe profile (exclude password)
+    const profile = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username
+    };
+
+    console.log(profile);
+    return profile;
+}
 
 
     // Add Friends
@@ -154,6 +163,7 @@ class SocialNetwork {
         console.log(`${userA} has successfully added ${userB}.`);
     }
 
+
     // Send Messages
 
     sendMessage(from, to, body) {
@@ -181,6 +191,7 @@ class SocialNetwork {
         console.log(`Message "${body}" from ${from} sent to ${to}.`);
     }
 
+
     // Read next message in inbox
 
     readNextMessage(user) {
@@ -202,10 +213,11 @@ class SocialNetwork {
         }
 
         // 3. Read message
-        const message = inbox.dequeue()
-        console.log(`New message from ${message.from}: "${message.body}"`)
+        const message = inbox.dequeue();
+        console.log(`New message from ${message.from}: "${message.body}"`);
 
     }
+
 
     // Undo last sent message
 
@@ -258,6 +270,7 @@ class SocialNetwork {
 
         }
     }
+
 
     // Find shortest path between users using BFS
 
@@ -317,6 +330,7 @@ class SocialNetwork {
         return null;
     }
 
+
     // Suggest Friends
 
     suggestFriends(username) {
@@ -336,7 +350,7 @@ class SocialNetwork {
 
         for (let friend of this.friends[username]) {
 
-            // 4. Loop through each freind's friends (2 hops)
+            // 4. Loop through each friend's friends (2 hops)
 
             for (let friendOfFriend of this.friends[friend]) {
 
@@ -352,7 +366,7 @@ class SocialNetwork {
                     continue;
                 }
 
-                // 7. Add friends of friends to suggestions, excludiing duplicates
+                // 7. Add friends of friends to suggestions, excluding duplicates
 
                 if (!suggestions.includes(friendOfFriend)) {
                     suggestions.push(friendOfFriend);
@@ -365,6 +379,7 @@ class SocialNetwork {
         console.log(`Friend Suggestions: `, suggestions);
         return suggestions;
     }
+
 
     // Print network using recursion and DFS
 
