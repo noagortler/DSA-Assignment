@@ -104,6 +104,23 @@ class SocialNetwork {
 
     }
 
+
+    // User look up
+
+    lookUpUser(username) {
+
+        // 1. Check existence
+
+        if (!this.users[username]) {
+            console.log(`Error: "${username} does not exist.`)
+            return;
+        } else {
+            console.log(this.users[username]);
+            return this.users[username];
+        }
+    }
+
+
     // Add Friends
 
     addFriendship(userA, userB) {
@@ -343,10 +360,47 @@ class SocialNetwork {
 
             }
 
-        } 
+        }
 
         console.log(`Friend Suggestions: `, suggestions);
         return suggestions;
+    }
+
+    // Print network using recursion and DFS
+
+    printNetwork(username, visited = new Set(), depth = 0) {
+
+        // 1. Check user exists
+
+        if (!this.users[username]) {
+            console.log(`Error: This user does not exist.`);
+            return;
+        }
+
+        // 2. Base case (if already visited -> stop)
+
+        if (visited.has(username)) return;
+
+        // 3. Print header on first call only
+
+        if (depth === 0) {
+            console.log(`${username}'s network:`);
+        }
+
+        // 4. Mark as visited
+
+        visited.add(username);
+
+        // 5. Print current user with indentation
+
+        const prefix = "-".repeat(depth);
+        console.log(`${prefix}${username}`);
+
+        // 6. Recursively call on each friend
+
+        for (let friend of this.friends[username]) {
+            this.printNetwork(friend, visited, depth + 1);
+        }
     }
 }
 

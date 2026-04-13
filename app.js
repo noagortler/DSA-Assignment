@@ -11,6 +11,11 @@ network.addUser("Felix", "Kitty", "felix123", "abc123");
 network.addUser("Ruby", "Kitty", "rubycat", "123abc");
 network.addUser("Felix", "Cat", "felix123", "ruby123"); // duplicate username test
 
+// User Lookup
+console.log("--- User Lookup ---");
+network.lookUpUser("felix123");
+network.lookUpUser("oscar123"); // non-existent user test
+
 // Adding Friendships
 
 console.log("--- Adding Friendships ---");
@@ -60,3 +65,8 @@ network.findShortestPath("felix123", "oscar123"); // non-existent user test
 console.log("--- Suggest Friends ---");
 network.suggestFriends("felix123");
 network.suggestFriends("oscar123"); // non-existent user test
+
+// Print Network
+console.log("--- Print Network ---");
+network.printNetwork("felix123");
+network.printNetwork("ghost999"); // non-existent user test
